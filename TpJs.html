@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<script>
+		var tabNumeros = ["776598720", "789465782", "771200240", "785476913", "773854467"];
+		var tabSoldes = [46200, 982510, 46800, 89000, 45000] ;
+		var tabCodes = ["0001", "0002", "0003", "0004", "0005"];
+		var numCourant = "";
+		function menu(){
+			var textMenu = "Bienvenue sur Sen Money\n"+
+			"1. Solde de mon compte\n"+
+			"2. Transfert d argent\n"+
+			"3. Paiement facture\n"+
+			"4. Options";
+			var rep = window.prompt(textMenu);
+			return rep;
+		}
+		function afficheSolde(num)
+		{
+			var indice = tabNumeros.indexOf(num);
+			if(indice != -1)
+			{
+				var code = window.prompt("veuillez entrer votre code secret:\n");
+				if(code==tabCodes[indice])
+				{					
+					alert("Le solde de votre comtpe est de "+ tabSoldes[indice]+ " F CFA" )+ etapeSuivant();
+				}
+				else 
+            	{
+                    alert ("code erroné");
+            	}
+			}
+		}
+		function transfertArgent(numDest){
+            var indice = tabNumeros.indexOf(numDest);
+            if (indice != -1) 
+            {
+                var numero = window.prompt("Je saisis le numéro de téléphone du destinataire:");
+                if(numero !=-1){
+                for (var i=0; i<tabNumeros.length; i++)
+                {
+                    if (numero == tabNumeros[i]) 
+                    {
+                        var montant = window.prompt("Veuillez saisir le montant du transfert:");
+                        var y = parseInt(montant);
+                        var code = window.prompt("Veuillez entrer votre code secret:");
+                         if (code == tabCodes[indice])
+                        {
+                            if (y < tabSoldes[indice]) 
+                            {
+                                tabSoldes[indice] -=y; 
+                                tabSoldes[i] = tabSoldes[i] + y;
+                                alert("Votre nouveau solde est de "+tabSoldes[indice]+ " F CFA");
+                            }
+                            else 
+                            {
+                                alert ("Solde insuffisant");
+                            }
+                        }
+                    }
+               }
+            }
+            }
+        }
+		function main(){
+			var rep = menu();
+			var numCourant = document.getElementById('num').value;
+			switch(rep){
+				case "1":
+				afficheSolde(numCourant);
+				break;
+
+				case "2":
+				numChoisi = document.getElementById('num').value;
+				transfertArgent(numChoisi);
+				break;
+			}
+		}
+		function etapeSuivant(){
+			var retourMenu = window.confirm("Voulez vous retourner au menu ?")
+			if(retourMenu == true){
+				return main();
+			}
+			else{
+				alert("Au revoir")
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+	<h1 id="demo">Sen Money</h1>
+	<form action="">
+		<select name="" id="num">
+			<script>
+				var txt = "";
+				for(let i=0; i<tabNumeros.length; i++){
+					txt += "<option>"+tabNumeros[i]+"</option>";
+				}
+					document.write(txt);
+			</script>
+		</select>
+	</form>
+	<br />
+	<button onclick="main()"> #144# </button><br><br>
+	</div>
+</body>
+</html>
